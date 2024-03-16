@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace StudentPortal_WEB.Controllers
 {
-    [Authorize(Roles = "admin, hrPersonal")]
     public class ClassroomsController : Controller
     {
         private readonly IClassroomRepository _classroomRepo;
@@ -24,6 +23,7 @@ namespace StudentPortal_WEB.Controllers
             _teacherRepo = teacherRepo;
         }
 
+        [Authorize(Roles = "admin, hrPersonal, teacher")]
         public async Task<IActionResult> Index()
         {
             var classrooms = await _classroomRepo.GetFilteredListAsync
@@ -48,6 +48,7 @@ namespace StudentPortal_WEB.Controllers
             return View(classrooms);
         }
 
+        [Authorize(Roles = "admin, hrPersonal")]
         public async Task<IActionResult> CreateClassroom()
         {
             var model = new CreateClassroomDTO
@@ -59,6 +60,7 @@ namespace StudentPortal_WEB.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin, hrPersonal")]
         public async Task<IActionResult> CreateClassroom(CreateClassroomDTO model)
         {
             model.Teachers = await _teacherRepo.GetByDefaultsAsync(x => x.Status != Status.Passive);
@@ -84,6 +86,7 @@ namespace StudentPortal_WEB.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "admin, hrPersonal")]
         public async Task<IActionResult> UpdateClassroom(int id)
         {
             if (id > 0)
@@ -102,6 +105,7 @@ namespace StudentPortal_WEB.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin, hrPersonal")]
         public async Task<IActionResult> UpdateClassroom(UpdateClassroomDTO model)
         {
             model.Teachers = await _teacherRepo.GetByDefaultsAsync(x => x.Status != Status.Passive);
@@ -133,6 +137,7 @@ namespace StudentPortal_WEB.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "admin, hrPersonal")]
         public async Task<IActionResult> DeleteClassroom(int id)
         {
             if (id > 0)

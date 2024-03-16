@@ -11,6 +11,7 @@ namespace StudentPortal_Core.DTO_s.StudentDTO
     public class UpdateStudentDTO
     {
         public int Id { get; set; }
+        public string AppUserID { get; set; }
 
         [Display(Name = "Ad")]
         public string? FirstName { get; set; }

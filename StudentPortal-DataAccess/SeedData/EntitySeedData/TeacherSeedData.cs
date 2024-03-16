@@ -21,7 +21,8 @@ namespace StudentPortal_DataAccess.SeedData.EntitySeedData
                         FirstName = "Öğretmen - 1",
                         LastName = "Öğretmen - 1",
                         BirthDate = new DateTime(1996,01,23),
-                        Email = "teacher@test.com"
+                        Email = "teacher@test.com",
+                        AppUserID = "427f1691-2f27-44bb-b9f1-d1a4782381af"
                     }
                 );
         }

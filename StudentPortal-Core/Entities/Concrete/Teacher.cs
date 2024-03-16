@@ -15,6 +15,8 @@ namespace StudentPortal_Core.Entities.Concrete
             Classrooms = new List<Classroom>();
         }
 
+        public string AppUserID { get; set; }
+
         [Required]
         [MaxLength(100)]
         [MinLength(3)]

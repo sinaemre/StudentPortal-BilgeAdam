@@ -20,11 +20,11 @@ namespace StudentPortal_DataAccess.FluentValidators.AccountValidators
                 .EmailAddress()
                 .WithMessage("E-Mail formatında giriş yapınız!");
 
-            RuleFor(x => x.Password)
-                .NotEmpty()
-                .WithMessage("Parola boş geçilemez!")
-                .MinimumLength(1)
-                .WithMessage("En az 1 karakter girmelisiniz!");
+            //RuleFor(x => x.Password)
+            //    .NotEmpty()
+            //    .WithMessage("Parola boş geçilemez!")
+            //    .MinimumLength(1)
+            //    .WithMessage("En az 1 karakter girmelisiniz!");
 
         
         }

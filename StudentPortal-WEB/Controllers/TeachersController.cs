@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using StudentPortal_Core.Entities.UserEntites.Concrete;
 using System.Text;
 using System.Globalization;
+using Microsoft.EntityFrameworkCore;
 
 namespace StudentPortal_WEB.Controllers
 {
@@ -78,6 +79,7 @@ namespace StudentPortal_WEB.Controllers
                     var result2 = await _userManager.AddToRoleAsync(appUser, "teacher");
                     if (result2.Succeeded)
                     {
+                        teacher.AppUserID = appUser.Id;
                         await _teacherRepo.AddAsync(teacher);
                         TempData["Success"] = $"{teacher.FirstName} {teacher.LastName} öğretmeni sisteme kaydedilmiştir.. Kullanıcı adı {appUser.UserName},\nŞifre: 1234";
                         return RedirectToAction("Index");
@@ -115,6 +117,16 @@ namespace StudentPortal_WEB.Controllers
             if (ModelState.IsValid)
             {
                 var teacher = _mapper.Map<Teacher>(model);
+                var appUser = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == teacher.AppUserID);
+                if (appUser != null)
+                {
+                    appUser.FirstName = teacher.FirstName;
+                    appUser.LastName = teacher.LastName;
+                    appUser.Email = teacher.Email;
+                    appUser.BirthDate = teacher.BirthDate;
+                    await _userManager.UpdateAsync(appUser);
+                }
+
                 await _teacherRepo.UpdateAsync(teacher);
                 TempData["Success"] = $"{teacher.FirstName} {teacher.LastName} kişisi güncellendi!";
                 return RedirectToAction("Index");
@@ -133,6 +145,8 @@ namespace StudentPortal_WEB.Controllers
                     if (!await _teacherRepo.HasClassroom(id))
                     {
                         await _teacherRepo.DeleteAsync(teacher);
+                        var appUser = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == teacher.AppUserID);
+                        await _userManager.DeleteAsync(appUser);
                         TempData["Success"] = $"{teacher.FirstName} {teacher.LastName} hocamıza hizmetleri için teşekkür ederiz. Hocamız silinmiştir.";
                         return RedirectToAction("Index");
                     }
@@ -147,5 +161,7 @@ namespace StudentPortal_WEB.Controllers
             TempData["Error"] = "Hoca bulunamadı!";
             return RedirectToAction("Index");
         }
+
+
     }
 }

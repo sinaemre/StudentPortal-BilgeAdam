@@ -9,6 +9,7 @@ namespace StudentPortal_Core.Entities.Concrete
 {
     public class HumanResources : BaseEntity
     {
+        public string AppUserID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }

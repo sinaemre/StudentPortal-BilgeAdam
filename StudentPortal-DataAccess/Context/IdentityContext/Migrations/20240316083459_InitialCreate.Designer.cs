@@ -12,7 +12,7 @@ using StudentPortal_DataAccess.Context.IdentityContext;
 namespace StudentPortal_DataAccess.Context.IdentityContext.Migrations
 {
     [DbContext(typeof(AppIdentityDbContext))]
-    [Migration("20240310103647_InitialCreate")]
+    [Migration("20240316083459_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -305,8 +305,8 @@ namespace StudentPortal_DataAccess.Context.IdentityContext.Migrations
                             Id = "92881b6d-cb5d-4809-b964-91074a5184d1",
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1999, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "4db3fac8-d6f1-4696-8ab7-d332bc887020",
-                            CreatedDate = new DateTime(2024, 3, 10, 13, 36, 45, 546, DateTimeKind.Local).AddTicks(4156),
+                            ConcurrencyStamp = "4932e8fc-7ef7-4287-ac35-a92fbdd7db94",
+                            CreatedDate = new DateTime(2024, 3, 16, 11, 34, 58, 615, DateTimeKind.Local).AddTicks(8530),
                             Email = "admin@test.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -315,9 +315,9 @@ namespace StudentPortal_DataAccess.Context.IdentityContext.Migrations
                             LoginCount = 0,
                             NormalizedEmail = "ADMIN@TEST.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEH7MDvQNOAnZgtrGula++EFhBH9Wcj3rZvMxVLBQHUQAJeia6wRtb+CWzRY4qYFCVw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEEzh42p+hljhFrdsxTfZQSJy8/eZ+Y3Dc0rF4SeWOJFZM/C7arL8/ztt0ht887ySdw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e6b25fea-3992-428b-9bef-1f373313146e",
+                            SecurityStamp = "910ff034-0620-403f-a4f5-d5d966bb9020",
                             Status = 1,
                             TwoFactorEnabled = false,
                             UserName = "admin"
@@ -327,8 +327,8 @@ namespace StudentPortal_DataAccess.Context.IdentityContext.Migrations
                             Id = "9d14c127-c5ec-4372-8ba9-26d58ebcdbe1",
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1996, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "5fa29671-55b6-40f0-9a5a-80eb6c3c9d9b",
-                            CreatedDate = new DateTime(2024, 3, 10, 13, 36, 45, 633, DateTimeKind.Local).AddTicks(4820),
+                            ConcurrencyStamp = "a255e396-5be8-4e16-a21b-a10acbba709a",
+                            CreatedDate = new DateTime(2024, 3, 16, 11, 34, 58, 701, DateTimeKind.Local).AddTicks(2193),
                             Email = "student@test.com",
                             EmailConfirmed = false,
                             FirstName = "Öğrenci - 1",
@@ -337,9 +337,9 @@ namespace StudentPortal_DataAccess.Context.IdentityContext.Migrations
                             LoginCount = 0,
                             NormalizedEmail = "STUDENT@TEST.COM",
                             NormalizedUserName = "STUDENT",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAoUR5GyoumrYMZ6dbGoAMXjHBBp5cqRVafbaA+YDnlc5cC0MMUhJlgwM9UiNVAeCg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMtAsKhKzlnbd6wZB7qg2h9Z42htUsmGbjviatQnsqA9pLspZqZdOvciB9Ai40ChQQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "986b6a37-83b6-4583-84a7-23c7c5d5f195",
+                            SecurityStamp = "c51e805f-ca4a-40f1-add3-39e50b307615",
                             Status = 1,
                             TwoFactorEnabled = false,
                             UserName = "student"
@@ -349,8 +349,8 @@ namespace StudentPortal_DataAccess.Context.IdentityContext.Migrations
                             Id = "2735fcfe-c490-4055-ae67-18ae6eca2212",
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1996, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "a3dbdbd8-b4db-451c-b469-d724872f087d",
-                            CreatedDate = new DateTime(2024, 3, 10, 13, 36, 45, 724, DateTimeKind.Local).AddTicks(1606),
+                            ConcurrencyStamp = "3f4fb6ff-c383-464d-8630-e4f546d28f17",
+                            CreatedDate = new DateTime(2024, 3, 16, 11, 34, 58, 786, DateTimeKind.Local).AddTicks(8699),
                             Email = "student2@test.com",
                             EmailConfirmed = false,
                             FirstName = "Öğrenci - 2",
@@ -359,9 +359,9 @@ namespace StudentPortal_DataAccess.Context.IdentityContext.Migrations
                             LoginCount = 0,
                             NormalizedEmail = "STUDENT2@TEST.COM",
                             NormalizedUserName = "STUDENT2",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMBvklSyskrguEMpGG04CCP/fm2cOVm1Xxrx7ElZ91offmYQaJq/2LmjZx6a4hYLJQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFJY8DfdUE5x24ye4iaNdmW17Yijmm5Ofv1hYvaAmpmhgHnFPTs4DiRXOjswfRyMTg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2f524384-55a6-4777-9937-168d7902f571",
+                            SecurityStamp = "94a72359-5ca7-40c3-ac89-68c8d4d69866",
                             Status = 1,
                             TwoFactorEnabled = false,
                             UserName = "student2"
@@ -371,8 +371,8 @@ namespace StudentPortal_DataAccess.Context.IdentityContext.Migrations
                             Id = "427f1691-2f27-44bb-b9f1-d1a4782381af",
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1996, 1, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "fbc7a72a-5761-4ac8-8efd-bc299dce6efa",
-                            CreatedDate = new DateTime(2024, 3, 10, 13, 36, 45, 812, DateTimeKind.Local).AddTicks(4055),
+                            ConcurrencyStamp = "bbecf63d-2c7a-4cc5-ae9e-de5e8929ca79",
+                            CreatedDate = new DateTime(2024, 3, 16, 11, 34, 58, 872, DateTimeKind.Local).AddTicks(1163),
                             Email = "teacher@test.com",
                             EmailConfirmed = false,
                             FirstName = "Öğretmen - 1",
@@ -381,9 +381,9 @@ namespace StudentPortal_DataAccess.Context.IdentityContext.Migrations
                             LoginCount = 0,
                             NormalizedEmail = "TEACHER@TEST.COM",
                             NormalizedUserName = "TEACHER",
-                            PasswordHash = "AQAAAAIAAYagAAAAEKX1gLWpVii8WkuNumgSZqjDEzjL6ske7fvt+Qi8/yd09lAhybsIl/D43iNmiPfwew==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPWfDy9pFNEDlINpAA4xb5bf9oTxFI8zqpxFoK5lJVn+13cBYaNj/HZgX4PKkx0QEg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8c72cbb3-9c6b-4ffd-a42d-d46aa8308a47",
+                            SecurityStamp = "1b2b2a04-f547-4707-b3d0-c04f55c0da93",
                             Status = 1,
                             TwoFactorEnabled = false,
                             UserName = "teacher"
@@ -393,8 +393,8 @@ namespace StudentPortal_DataAccess.Context.IdentityContext.Migrations
                             Id = "8b3cd4dd-84f7-4c44-8279-7124a458dfbf",
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1996, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "0195da5c-c9d5-4226-95b3-d4cf9aa80d20",
-                            CreatedDate = new DateTime(2024, 3, 10, 13, 36, 45, 900, DateTimeKind.Local).AddTicks(5825),
+                            ConcurrencyStamp = "bc6344e7-1513-4823-958e-d1bdaddb0738",
+                            CreatedDate = new DateTime(2024, 3, 16, 11, 34, 58, 957, DateTimeKind.Local).AddTicks(5845),
                             Email = "hrpersonal@test.com",
                             EmailConfirmed = false,
                             FirstName = "İnsan Kaynakları",
@@ -403,9 +403,9 @@ namespace StudentPortal_DataAccess.Context.IdentityContext.Migrations
                             LoginCount = 0,
                             NormalizedEmail = "HRPERSONAL@TEST.COM",
                             NormalizedUserName = "HRPERSONAL",
-                            PasswordHash = "AQAAAAIAAYagAAAAEADO7ECJ0+AbvEgDhTBq2Fz5A1qggBOcjSf1j2+1OJO2D2A0D6BUjsF5h6eSOBwHCg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGP/2cWMwjJW5n7UWSIwVsJaaHTB1v4M/PFwlQ5KLKkafAUwry4fXBENhIuwq+K70Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "51599837-eefa-4132-a952-9811dc1467ad",
+                            SecurityStamp = "54ac2e10-b78a-4a1f-82cc-98122d610378",
                             Status = 1,
                             TwoFactorEnabled = false,
                             UserName = "hrPersonal"

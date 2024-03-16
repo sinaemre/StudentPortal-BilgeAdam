@@ -12,8 +12,8 @@ using StudentPortal_DataAccess.Context;
 namespace StudentPortal_DataAccess.Context.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240310110832_UpdateHumanResources")]
-    partial class UpdateHumanResources
+    [Migration("20240316083401_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -66,7 +66,7 @@ namespace StudentPortal_DataAccess.Context.Migrations
                             Id = 1,
                             ClassroomDescription = "320 Saat .NET Full Stack Yazılım Uzmanlığı Eğitimi",
                             ClassroomName = "YZL-8445",
-                            CreatedDate = new DateTime(2024, 3, 10, 14, 8, 32, 274, DateTimeKind.Local).AddTicks(5312),
+                            CreatedDate = new DateTime(2024, 3, 16, 11, 34, 0, 847, DateTimeKind.Local).AddTicks(2784),
                             Status = 1,
                             TeacherId = 1
                         });
@@ -79,6 +79,10 @@ namespace StudentPortal_DataAccess.Context.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AppUserID")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("timestamp without time zone");
@@ -118,8 +122,9 @@ namespace StudentPortal_DataAccess.Context.Migrations
                         new
                         {
                             Id = 1,
+                            AppUserID = "8b3cd4dd-84f7-4c44-8279-7124a458dfbf",
                             BirthDate = new DateTime(1996, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedDate = new DateTime(2024, 3, 10, 14, 8, 32, 274, DateTimeKind.Local).AddTicks(5973),
+                            CreatedDate = new DateTime(2024, 3, 16, 11, 34, 0, 847, DateTimeKind.Local).AddTicks(3519),
                             Email = "hrpersonal@test.com",
                             FirstName = "İnsan Kaynakları",
                             HireDate = new DateTime(2023, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -135,6 +140,10 @@ namespace StudentPortal_DataAccess.Context.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AppUserID")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("timestamp without time zone");
@@ -190,9 +199,10 @@ namespace StudentPortal_DataAccess.Context.Migrations
                         new
                         {
                             Id = 1,
+                            AppUserID = "9d14c127-c5ec-4372-8ba9-26d58ebcdbe1",
                             BirthDate = new DateTime(1996, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ClassroomId = 1,
-                            CreatedDate = new DateTime(2024, 3, 10, 14, 8, 32, 274, DateTimeKind.Local).AddTicks(5642),
+                            CreatedDate = new DateTime(2024, 3, 16, 11, 34, 0, 847, DateTimeKind.Local).AddTicks(3136),
                             Email = "student@test.com",
                             FirstName = "Öğrenci - 1",
                             LastName = "Öğrenci - 1",
@@ -201,9 +211,10 @@ namespace StudentPortal_DataAccess.Context.Migrations
                         new
                         {
                             Id = 2,
+                            AppUserID = "2735fcfe-c490-4055-ae67-18ae6eca2212",
                             BirthDate = new DateTime(1996, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ClassroomId = 1,
-                            CreatedDate = new DateTime(2024, 3, 10, 14, 8, 32, 274, DateTimeKind.Local).AddTicks(5649),
+                            CreatedDate = new DateTime(2024, 3, 16, 11, 34, 0, 847, DateTimeKind.Local).AddTicks(3143),
                             Email = "student2@test.com",
                             FirstName = "Öğrenci - 2",
                             LastName = "Öğrenci - 2",
@@ -218,6 +229,10 @@ namespace StudentPortal_DataAccess.Context.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AppUserID")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("timestamp without time zone");
@@ -256,8 +271,9 @@ namespace StudentPortal_DataAccess.Context.Migrations
                         new
                         {
                             Id = 1,
+                            AppUserID = "427f1691-2f27-44bb-b9f1-d1a4782381af",
                             BirthDate = new DateTime(1996, 1, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedDate = new DateTime(2024, 3, 10, 14, 8, 32, 274, DateTimeKind.Local).AddTicks(4813),
+                            CreatedDate = new DateTime(2024, 3, 16, 11, 34, 0, 847, DateTimeKind.Local).AddTicks(2154),
                             Email = "teacher@test.com",
                             FirstName = "Öğretmen - 1",
                             LastName = "Öğretmen - 1",

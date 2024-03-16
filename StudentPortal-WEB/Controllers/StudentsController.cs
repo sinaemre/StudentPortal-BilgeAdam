@@ -62,24 +62,33 @@ namespace StudentPortal_WEB.Controllers
             return View(students);
         }
 
-        public async Task<IActionResult> DetailStudent(int id)
+        public async Task<IActionResult> DetailStudent(int? id)
         {
-            if (id > 0)
+            Student student = null;
+            if (id is not null)
             {
-                var student = await _studentRepo.GetByIdAsync(id);
-                if (student is not null)
+                if (id > 0)
                 {
-                    var model = _mapper.Map<GetStudentDetailDTO>(student);
-                    if (student.ClassroomId is not null)
-                    {
-                        var classroom = await _classroomRepo.GetByIdAsync((int)student.ClassroomId);
-                        var teacher = await _teacherRepo.GetByIdAsync(classroom.TeacherId);
-                        model.ClassroomName = classroom.ClassroomName;
-                        model.TeacherName = teacher.FirstName + " " + teacher.LastName;
-                    }
-
-                    return View(model);
+                    student = await _studentRepo.GetByIdAsync((int)id);
                 }
+            }
+            else
+            {
+                student = await _studentRepo.GetByDefaultAsync(x => x.AppUserID == _userManager.GetUserId(HttpContext.User));
+
+            }
+            if (student is not null)
+            {
+                var model = _mapper.Map<GetStudentDetailDTO>(student);
+                if (student.ClassroomId is not null)
+                {
+                    var classroom = await _classroomRepo.GetByIdAsync((int)student.ClassroomId);
+                    var teacher = await _teacherRepo.GetByIdAsync(classroom.TeacherId);
+                    model.ClassroomName = classroom.ClassroomName;
+                    model.TeacherName = teacher.FirstName + " " + teacher.LastName;
+                }
+
+                return View(model);
             }
             TempData["Error"] = "Öğrenci bulunamadı!";
             return RedirectToAction("Index");
@@ -154,6 +163,7 @@ namespace StudentPortal_WEB.Controllers
                     var result2 = await _userManager.AddToRoleAsync(appUser, "student");
                     if (result2.Succeeded)
                     {
+                        student.AppUserID = appUser.Id;
                         await _studentRepo.AddAsync(student);
                         TempData["Success"] = $"{student.FirstName} {student.LastName} öğrencisi sisteme kaydedilmiştir.. Kullanıcı adı {appUser.UserName},\nŞifre: 1234";
                         return RedirectToAction("Index");
@@ -219,6 +229,15 @@ namespace StudentPortal_WEB.Controllers
             if (ModelState.IsValid)
             {
                 var student = _mapper.Map<Student>(model);
+                var appUser = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == student.AppUserID);
+                if (appUser != null)
+                {
+                    appUser.FirstName = student.FirstName;
+                    appUser.LastName = student.LastName;
+                    appUser.BirthDate = student.BirthDate;
+                    appUser.Email = student.Email;
+                    await _userManager.UpdateAsync(appUser);
+                }
                 await _studentRepo.UpdateAsync(student);
                 TempData["Success"] = $"{student.FirstName} {student.LastName} öğrencisi güncellenmiştir.";
                 return RedirectToAction("Index");
@@ -236,12 +255,40 @@ namespace StudentPortal_WEB.Controllers
                 if (student is not null)
                 {
                     await _studentRepo.DeleteAsync(student);
+                    var appUser = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == student.AppUserID);
+                    await _userManager.DeleteAsync(appUser);
                     TempData["Success"] = $"{student.FirstName} {student.LastName} öğrencisinin kaydı silinmiştir!";
                     return RedirectToAction("Index");
                 }
             }
             TempData["Error"] = "Öğrenci bulunamadı!";
             return RedirectToAction("Index");
+        }
+
+        [Authorize(Roles = "admin, hrPersonal, teacher")]
+        public async Task<IActionResult> GetStudentsByClassroomId(int id)
+        {
+            if (id > 0)
+            {
+                var students = await _studentRepo.GetFilteredListAsync
+                    (
+                        select: x => new GetStudentsVM
+                        {
+                            Id = x.Id,
+                            FullName = x.FirstName + " " + x.LastName,
+                            BirthDate = x.BirthDate,
+                            Exam1 = x.Exam1,
+                            Exam2 = x.Exam2,
+                            Average = x.Average,
+                            ProjectExam = x.ProjectExam,
+                            
+                        },
+                        where: x => x.ClassroomId == id && x.Status != Status.Passive
+                    );
+                return View(students);
+            }
+            TempData["Error"] = "Sınıf bulunamadı!";
+            return RedirectToAction("Index", "Home");
         }
     }
 }

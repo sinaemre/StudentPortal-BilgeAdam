@@ -14,7 +14,7 @@ namespace StudentPortal_Core.DTO_s.StudentDTO
         public double? Exam2 { get; set; }
         public double? ProjectExam { get; set; }
         public string? ProjectName { get; set; }
-        public bool? IsSucceed 
+        public bool? IsSucceed
         {
             get
             {
@@ -24,9 +24,13 @@ namespace StudentPortal_Core.DTO_s.StudentDTO
                     {
                         return true;
                     }
+                    else
+                    {
+                        return false;
+                    }
                 }
-                return false;
-            } 
+                return null;
+            }
         }
 
         public double? Average { get; set; }

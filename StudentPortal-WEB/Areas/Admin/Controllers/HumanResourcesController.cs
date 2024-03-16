@@ -11,6 +11,7 @@ using StudentPortal_Core.Entities.UserEntites.Concrete;
 using NuGet.DependencyResolver;
 using System.Globalization;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 
 namespace StudentPortal_WEB.Areas.Admin.Controllers
 {
@@ -23,7 +24,7 @@ namespace StudentPortal_WEB.Areas.Admin.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly IPasswordHasher<AppUser> _passwordHasher;
 
-        public HumanResourcesController(IHumanResourcesRepository hrRepository, IMapper mapper, UserManager<AppUser> userManager, IPasswordHasher<AppUser> passwordHasher )
+        public HumanResourcesController(IHumanResourcesRepository hrRepository, IMapper mapper, UserManager<AppUser> userManager, IPasswordHasher<AppUser> passwordHasher)
         {
             _hrRepository = hrRepository;
             _mapper = mapper;
@@ -82,6 +83,7 @@ namespace StudentPortal_WEB.Areas.Admin.Controllers
                     var result2 = await _userManager.AddToRoleAsync(appUser, "hrPersonal");
                     if (result2.Succeeded)
                     {
+                        hr.AppUserID = appUser.Id;
                         await _hrRepository.AddAsync(hr);
                         TempData["Success"] = $"{hr.FirstName} {hr.LastName} personeli sisteme kaydedilmiştir.. Kullanıcı adı {appUser.UserName},\nŞifre: 1234";
                         return RedirectToAction("Index");
@@ -94,6 +96,63 @@ namespace StudentPortal_WEB.Areas.Admin.Controllers
             }
             TempData["Error"] = "Lütfen aşağıdaki kurallara uyunuz!";
             return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> UpdateHR(int id)
+        {
+            var hr = await _hrRepository.GetByIdAsync(id);
+            if (hr != null)
+            {
+                var model = _mapper.Map<UpdateHRDTO>(hr);
+                return View(model);
+            }
+            TempData["Error"] = "Personel bulunamadı!";
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateHR(UpdateHRDTO model)
+        {
+            if (ModelState.IsValid)
+            {
+                var hr = _mapper.Map<HumanResources>(model);
+                if (hr != null)
+                {
+                    await _hrRepository.UpdateAsync(hr);
+                    var appUser = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == hr.AppUserID);
+                    if (appUser != null)
+                    {
+                        appUser.FirstName = hr.FirstName;
+                        appUser.LastName = hr.LastName;
+                        appUser.Email = hr.Email;
+                        appUser.BirthDate = hr.BirthDate;
+                        await _userManager.UpdateAsync(appUser);
+                    }
+                    TempData["Success"] = "Personel güncellendi!";
+                    return RedirectToAction("Index");
+                }
+                TempData["Error"] = "Personel bulunamadı!";
+                return RedirectToAction("Index");
+            }
+            TempData["Error"] = "Lütfen aşağıdaki kurallara uyunuz!";
+            return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteHR(int id)
+        {
+            var hr = await _hrRepository.GetByIdAsync(id);
+            if (hr != null)
+            {
+                await _hrRepository.DeleteAsync(hr);
+                var appUser = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == hr.AppUserID);
+                await _userManager.DeleteAsync(appUser);
+                TempData["Success"] = "Personel silindi!";
+                return RedirectToAction("Index");
+            }
+            TempData["Error"] = "Kullanıcı bulunamadı!";
+            return RedirectToAction("Index");
         }
     }
 }

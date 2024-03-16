@@ -12,6 +12,7 @@ namespace StudentPortal_Core.Entities.Concrete
 {
     public class Student : BaseEntity
     {
+        public string AppUserID { get; set; }
         [Required]
         [MaxLength(100)]
         [MinLength(3)]
@@ -34,7 +35,11 @@ namespace StudentPortal_Core.Entities.Concrete
         { 
             get 
             {
-                return (0.25 * Exam1) + (0.25 * Exam2) + (0.5 * ProjectExam);
+                if (Exam1 is not null && Exam2 is not null && ProjectExam is not null)
+                {
+                    return (0.25 * Exam1) + (0.25 * Exam2) + (0.5 * ProjectExam);
+                }
+                return null;
             }
         }
 

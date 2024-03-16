@@ -39,6 +39,7 @@ namespace StudentPortal_WEB
             builder.Services.AddValidatorsFromAssemblyContaining<UpdateRoleValidator>();
             builder.Services.AddValidatorsFromAssemblyContaining<ChangePasswordValidator>();
             builder.Services.AddValidatorsFromAssemblyContaining<CreateHRValidator>();
+            builder.Services.AddValidatorsFromAssemblyContaining<UpdateHRValidator>();
             builder.Services.AddFluentValidationAutoValidation();
             builder.Services.AddFluentValidationClientsideAdapters();
 

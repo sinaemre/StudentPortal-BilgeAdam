@@ -23,6 +23,13 @@
             }
         }
 
+        @if (User.IsInRole("student"))
+        {
+            <li class="nav-item mx-2">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Students" asp-action="DetailStudent">Notları Gör</a>
+            </li>
+        }
+
         <li class="nav-item mx-2">
             <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="EditUser">Bilgileri Düzenle</a>
         </li>

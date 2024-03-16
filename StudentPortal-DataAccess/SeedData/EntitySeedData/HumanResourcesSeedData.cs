@@ -22,7 +22,8 @@ namespace StudentPortal_DataAccess.SeedData.EntitySeedData
                         LastName = "İnsan Kaynakları",
                         Email = "hrpersonal@test.com",
                         BirthDate = new DateTime(1996, 01, 01),
-                        HireDate = new DateTime(2023, 05, 05)
+                        HireDate = new DateTime(2023, 05, 05),
+                        AppUserID = "8b3cd4dd-84f7-4c44-8279-7124a458dfbf"
                     }
                 );
         }

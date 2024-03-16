@@ -22,7 +22,8 @@ namespace StudentPortal_DataAccess.SeedData.EntitySeedData
                         LastName = "Öğrenci - 1",
                         BirthDate = new DateTime(1996, 01, 01),
                         Email = "student@test.com",
-                        ClassroomId = 1
+                        ClassroomId = 1,
+                        AppUserID = "9d14c127-c5ec-4372-8ba9-26d58ebcdbe1"
                     },
                     new Student
                     {
@@ -31,7 +32,8 @@ namespace StudentPortal_DataAccess.SeedData.EntitySeedData
                         LastName = "Öğrenci - 2",
                         BirthDate = new DateTime(1996, 02, 02),
                         Email = "student2@test.com",
-                        ClassroomId = 1
+                        ClassroomId = 1,
+                        AppUserID = "2735fcfe-c490-4055-ae67-18ae6eca2212"
                     }
                 ) ;
         }
