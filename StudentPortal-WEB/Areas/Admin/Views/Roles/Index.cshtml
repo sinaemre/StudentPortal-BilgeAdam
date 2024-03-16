@@ -1,0 +1,74 @@
+﻿@model List<IdentityRole>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h3>Roller</h3>
+            </div>
+            <div class="card-body">
+                <div class="table table-responsive-xl d-xl-table table- table-responsive-md table-responsive-sm table-sm table-responsive-lg table-responsive-xs">
+                    <table class="table table-responsive-md table-responsive-sm table-sm  table-responsive-lg table-responsive-xs table-xs table-hover">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Rol Adı</th>
+                                <th>Kullanıcılar</th>
+                                <th>Role Ata</th>
+                                <th>Güncelle</th>
+                                <th>Sil</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var role in Model)
+                            {
+                                <tr>
+                                    <td>@role.Id</td>
+                                    <td>@role.Name</td>
+                                    <td user-role="@role.Id">@role.Id</td>
+                                    <td>
+                                        <a asp-action="AssignedUser" class="btn btn-outline-success" asp-route-id="@role.Id">Role Ata</a>
+                                    </td>
+                                    <td>
+                                        <a asp-action="UpdateRole" asp-route-id="@role.Id" class="btn btn-outline-primary">Güncelle</a>
+                                    </td>
+                                    <td>
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal-@role.Id">
+                                            Sil
+                                        </button>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="exampleModal-@role.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Silme Uyarısı</h5>
+                                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Silmek istediğinize emin misiniz?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">İptal</button>
+                                                        <a asp-action="DeleteRole" asp-route-id="@role.Id" class="btn btn-danger">Evet</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer">
+                    <a asp-action="CreateRole" class="btn btn-outline-dark d-block">Yeni Rol Ekle</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

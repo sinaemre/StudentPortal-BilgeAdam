@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Student Detail";
+}
+@model GetStudentDetailDTO
+
+<div class="card mb-3" style="max-width: 540px;">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img src="~/img/default.jpg" class="img-fluid rounded-start" alt="...">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h2 class="card-title ">@Model.FirstName @Model.LastName</h2>
+                <p class="card-text fs-3">Sınıf: 
+                    @if (Model.ClassroomName is not null)
+                    {
+                        <b> @Model.ClassroomName</b>
+                    }
+                    else
+                    {
+                        <b> - </b>
+
+                    }
+                </p>
+
+                <p class="card-text fs-3">Öğretmen:
+                    @if (Model.TeacherName is not null)
+                    {
+                        <b>@Model.TeacherName</b>
+                    }
+                    else
+                    {
+                        <b> - </b>
+                    }
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

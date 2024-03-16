@@ -1,0 +1,96 @@
+﻿@{
+    ViewData["Title"] = "Classrooms Index";
+}
+@model List<GetClassroomVM>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h3>Sınıflar Listesi</h3>
+            </div>
+            <div class="card-body">
+                <div class="table table-responsive-xl d-xl-table table-responsive-md table-responsive-sm table-sm table-responsive-lg table-responsive-xs ">
+                    <table class="table table-responsive-md table-responsive-sm table-sm  table-responsive-lg table-responsive-xs table-hover">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Sınıf Adı</th>
+                                <th>Açıklaması</th>
+                                <th>Mevcut</th>
+                                <th>Öğretmen</th>
+                                <th>Eklenme Tarihi</th>
+                                <th>Güncellenme Tarihi</th>
+                                <th>Durum</th>
+                                <th>Güncelle</th>
+                                <th>Sil</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var classroom in Model)
+                            {
+                                <tr>
+                                    <td>@classroom.Id</td>
+                                    <td>@classroom.ClassroomName</td>
+                                    <td>@classroom.ClassroomDescription</td>
+                                    <td>@classroom.ClassroomSize</td>
+                                    <td>@classroom.TeacherName</td>
+                                    <td>@classroom.CreatedDate</td>
+                                    @if (classroom.UpdatedDate is not null)
+                                    {
+                                        <td>@classroom.UpdatedDate</td>
+                                    }
+                                    else
+                                    {
+                                        <td> - </td>
+                                    }
+
+                                    @if (classroom.Status == StudentPortal_Core.Entities.Abstract.Status.Active)
+                                    {
+                                        <td>Aktif</td>
+                                    }
+                                    else
+                                    {
+                                        <td>Güncellenmiş</td>
+                                    }
+                                    <td>
+                                        <a asp-action="UpdateClassroom" asp-route-id="@classroom.Id" class="btn btn-outline-primary">Güncelle</a>
+                                    </td>
+                                    <td>
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal-@classroom.Id">
+                                            Sil
+                                        </button>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="exampleModal-@classroom.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Silme Uyarısı</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Silmek istediğinize emin misiniz?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                                                        <a asp-action="DeleteClassroom" asp-route-id="@classroom.Id" class="btn btn-danger">Evet</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a class="btn btn-outline-dark d-block" asp-action="CreateClassroom">Yeni Sınıf Ekle</a>
+            </div>
+        </div>
+    </div>
+</div>
+

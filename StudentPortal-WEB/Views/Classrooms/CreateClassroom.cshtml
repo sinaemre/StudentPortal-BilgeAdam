@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Create Classroom";
+}
+@model CreateClassroomDTO
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Yeni Sınıf Ekle</h3>
+            </div>
+            <form asp-action="CreateClassroom">
+                <div class="card-body">
+                    <div>
+                        <label asp-for="ClassroomName" class="form-label"></label>
+                        <input asp-for="ClassroomName" class="form-control" />
+                        <span asp-validation-for="ClassroomName" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <label asp-for="ClassroomDescription" class="form-label"></label>
+                        <input asp-for="ClassroomDescription" class="form-control" />
+                        <span asp-validation-for="ClassroomDescription" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <label asp-for="TeacherId" class="form-label"></label>
+                        <select asp-for="TeacherId" class="form-control">
+                            <option disabled selected value="0">Lütfen bir öğretmen seçiniz</option>
+                            @foreach (var teacher in Model.Teachers)
+                            {
+                                <option value="@teacher.Id">@teacher.FirstName @teacher.LastName</option>
+                            }
+                        </select>
+                        <span asp-validation-for="TeacherId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-between" style="height:50px;">
+                    <a asp-action="Index" class="btn btn-outline-dark">Geri Dön</a>
+                    <button type="submit" class="btn btn-outline-success">Kaydet</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

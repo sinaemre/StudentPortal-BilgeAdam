@@ -1,0 +1,59 @@
+﻿@{
+    ViewData["Title"] = "Register";
+}
+@model RegisterDTO
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Kayıt Ol</h3>
+            </div>
+            <form asp-action="Register">
+                <div class="card-body">
+                    <div>
+                        <label asp-for="FirstName" class="form-label"></label>
+                        <input asp-for="FirstName" class="form-control" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <label asp-for="LastName" class="form-label"></label>
+                        <input asp-for="LastName" class="form-control" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <label asp-for="BirthDate" class="form-label"></label>
+                        <input type="date" asp-for="BirthDate" class="form-control" />
+                        <span asp-validation-for="BirthDate" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <label asp-for="Email" class="form-label"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <label asp-for="RoleId" class="form-label"></label>
+                        <select asp-for="RoleId" class="form-control">
+                            <option disabled selected value="0">Lütfen bir rol seçiniz</option>
+                            @foreach (var role in Model.Roles)
+                            {
+                                <option value="@role.Id">@role.Name</option>
+                            }
+                        </select>
+                        <span asp-validation-for="RoleId" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <label asp-for="Password" class="form-label"></label>
+                        <input type="password" asp-for="Password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-between" style="height:50px;">
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-outline-dark">Geri Dön</a>
+                    <button type="submit" class="btn btn-outline-success">Kaydet</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

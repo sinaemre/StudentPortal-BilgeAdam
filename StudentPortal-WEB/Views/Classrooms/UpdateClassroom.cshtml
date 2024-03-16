@@ -1,0 +1,55 @@
+﻿@{
+    ViewData["Title"] = "Update Classroom";
+}
+@model UpdateClassroomDTO
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Sınıf Güncelle</h3>
+            </div>
+            <form asp-action="UpdateClassroom">
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="CreatedDate" />
+                <input type="hidden" asp-for="UpdatedDate" />
+                <div class="card-body">
+                    <div>
+                        <label asp-for="ClassroomName" class="form-label"></label>
+                        <input asp-for="ClassroomName" class="form-control" />
+                        <span asp-validation-for="ClassroomName" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <label asp-for="ClassroomDescription" class="form-label"></label>
+                        <input asp-for="ClassroomDescription" class="form-control" />
+                        <span asp-validation-for="ClassroomDescription" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <label asp-for="TeacherId" class="form-label"></label>
+                        <select asp-for="TeacherId" class="form-control">
+                            <option disabled value="0">Lütfen bir öğretmen seçiniz</option>
+                            @foreach (var teacher in Model.Teachers)
+                            {
+                                @if (teacher.Id == Model.TeacherId)
+                                {
+                                    <option selected value="@teacher.Id">@teacher.FirstName @teacher.LastName</option>
+
+                                }
+                                else
+                                {
+                                    <option value="@teacher.Id">@teacher.FirstName @teacher.LastName</option>
+                                }
+                            }
+                        </select>
+                        <span asp-validation-for="TeacherId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-between" style="height:50px;">
+                    <a asp-action="Index" class="btn btn-outline-dark">Geri Dön</a>
+                    <button type="submit" class="btn btn-outline-success">Kaydet</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
