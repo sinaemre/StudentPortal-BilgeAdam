@@ -29,7 +29,7 @@
                                     <td>@student.BirthDate.ToShortDateString()</td>
                                     <td>@student.Average</td>
                                     <td>
-                                        <a asp-action="EnterExamGrade" asp-route-id="@student.Id" class="btn btn-outline-success">Not Gir</a>
+                                        <a asp-controller="Teachers" asp-action="EnterExamGrade" asp-route-id="@student.Id" class="btn btn-outline-success">Not Gir</a>
                                     </td>
                                     <td>
                                         <div class="accordion" id="accordionExample">

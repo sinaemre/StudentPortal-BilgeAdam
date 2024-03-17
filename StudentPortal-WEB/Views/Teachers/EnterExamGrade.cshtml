@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "Enter Exam Grade";
+}
+@model EnterExamStudentDTO
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">@Model.FirstName @Model.LastName</h3>
+            </div>
+            <form asp-action="EnterExamGrade" enctype="multipart/form-data">
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="AppUserID" />
+                <input type="hidden" asp-for="FirstName" />
+                <input type="hidden" asp-for="LastName" />
+                <input type="hidden" asp-for="BirthDate" />
+                <input type="hidden" asp-for="Email" />
+                <input type="hidden" asp-for="ClassroomId" />
+
+                <div class="card-body">
+                    <div>
+                        <label asp-for="Exam1" class="form-label"></label>
+                        <input asp-for="Exam1" type="number" class="form-control" />
+                        <span asp-validation-for="Exam1" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <label asp-for="Exam2" class="form-label"></label>
+                        <input asp-for="Exam2" type="number" class="form-control" />
+                        <span asp-validation-for="Exam2" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <label asp-for="ProjectExam" class="form-label"></label>
+                        <input asp-for="ProjectExam" type="number" class="form-control" />
+                        <span asp-validation-for="ProjectExam" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <label asp-for="Project" class="form-label"></label>
+                        <input asp-for="Project" class="form-control" />
+                        <span asp-validation-for="Project" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-between" style="height:50px;">
+                    <a asp-action="GetStudentsByClassroomId" asp-controller="Students" asp-route-id="@Model.ClassroomId" class="btn btn-outline-dark">Geri Dön</a>
+                    <button type="submit" class="btn btn-outline-success">Kaydet</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

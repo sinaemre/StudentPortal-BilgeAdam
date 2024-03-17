@@ -4,21 +4,21 @@
         if (User.IsInRole("admin") || User.IsInRole("hrPersonal"))
         {
             @*   <li class="nav-item">
-                    <a class="nav-link text-dark mx-2" asp-area="" asp-controller="Account" asp-action="Register">Kayıt Ol</a>
+                    <a class="nav-link text-white mx-2" asp-area="" asp-controller="Account" asp-action="Register">Kayıt Ol</a>
                  </li> *@
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Teachers" asp-action="Index">Öğretmenler</a>
+                <a class="nav-link text-white" asp-area="" asp-controller="Teachers" asp-action="Index">Öğretmenler</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Classrooms" asp-action="Index">Sınıflar</a>
+                <a class="nav-link text-white" asp-area="" asp-controller="Classrooms" asp-action="Index">Sınıflar</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Students" asp-action="Index">Öğrenciler</a>
+                <a class="nav-link text-white" asp-area="" asp-controller="Students" asp-action="Index">Öğrenciler</a>
             </li>
             @if (User.IsInRole("admin"))
             {
                 <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">Admin Paneli</a>
+                    <a class="nav-link text-white" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">Admin Paneli</a>
                 </li>
             }
         }
@@ -26,32 +26,32 @@
         @if (User.IsInRole("teacher"))
         {
             <li class="nav-item mx-2">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Classrooms" asp-action="GetClassroomsByTeacherId">Sınıfları Gör</a>
+                <a class="nav-link text-white" asp-area="" asp-controller="Classrooms" asp-action="GetClassroomsByTeacherId">Sınıfları Gör</a>
             </li>
         }
 
         @if (User.IsInRole("student"))
         {
             <li class="nav-item mx-2">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Students" asp-action="DetailStudent">Notları Gör</a>
+                <a class="nav-link text-white" asp-area="" asp-controller="Students" asp-action="DetailStudent">Notları Gör</a>
             </li>
         }
 
         <li class="nav-item mx-2">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="EditUser">Bilgileri Düzenle</a>
+            <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="EditUser">Bilgileri Düzenle</a>
         </li>
 
         <li class="nav-item">
 
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-danger nav-link text-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <button type="button" class="btn btn-danger nav-link text-white" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Çıkış Yap
             </button>
 
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
+                <div class="modal-dialog " >
+                    <div class="modal-content" style="z-index:100000">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Çıkış Yapma Uyarısı</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -71,7 +71,7 @@
     else
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Giriş Yap</a>
+            <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="Login">Giriş Yap</a>
         </li>
     }
 

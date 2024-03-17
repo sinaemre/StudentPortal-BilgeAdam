@@ -22,14 +22,16 @@ namespace StudentPortal_WEB.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly IPasswordHasher<AppUser> _passwordHasher;
         private readonly IStudentRepository _studentRepo;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public TeachersController(ITeacherRepository teacherRepo, IMapper mapper, UserManager<AppUser> userManager, IPasswordHasher<AppUser> passwordHasher, IStudentRepository studentRepo)
+        public TeachersController(ITeacherRepository teacherRepo, IMapper mapper, UserManager<AppUser> userManager, IPasswordHasher<AppUser> passwordHasher, IStudentRepository studentRepo, IWebHostEnvironment webHostEnvironment)
         {
             _teacherRepo = teacherRepo;
             _mapper = mapper;
             _userManager = userManager;
             _passwordHasher = passwordHasher;
             _studentRepo = studentRepo;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         [Authorize(Roles = "admin, hrPersonal")]
@@ -195,9 +197,21 @@ namespace StudentPortal_WEB.Controllers
                 var student = _mapper.Map<Student>(model);
                 if (student != null)
                 {
+                    if (model.Project != null)
+                    {
+                        string uploadDir = Path.Combine(_webHostEnvironment.WebRootPath, "students/projects");
+                        string fileName = $"{Guid.NewGuid()}_{student.FirstName}_{student.LastName}_{model.Project.FileName}";
+                        string filePath = Path.Combine(uploadDir, fileName);
+                        FileStream fileStream = new FileStream(filePath, FileMode.Create);
+                        await model.Project.CopyToAsync(fileStream);
+                        fileStream.Close();
+                        student.ProjectPath = fileName;
+                    }
+
+
                     await _studentRepo.UpdateAsync(student);
                     TempData["Success"] = "Öğrencinin notları başarılı bir şekilde girilmiştir!";
-                    return RedirectToAction("GetClassroomsByTeacherId", "Classrooms");
+                    return RedirectToAction("GetStudentsByClassroomId", "Students", new { id = student.ClassroomId });
                 }
                 TempData["Error"] = "Öğrenci bulunamadı!";
                 return RedirectToAction("GetClassroomsByTeacherId", "Classrooms");

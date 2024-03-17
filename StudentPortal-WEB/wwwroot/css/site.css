@@ -20,3 +20,18 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+td {
+    color: white !important;
+}
+
+th {
+    color: white !important;
+}
+
+.modal-backdrop {
+    z-index:1 !important
+}
+
+
+
