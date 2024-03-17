@@ -7,6 +7,8 @@ using StudentPortal_DataAccess.Services.Interface;
 using StudentPortal_WEB.Models.ViewModels;
 using StudentPortal_Core.Entities.Abstract;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using StudentPortal_Core.Entities.UserEntites.Concrete;
 
 namespace StudentPortal_WEB.Controllers
 {
@@ -15,12 +17,14 @@ namespace StudentPortal_WEB.Controllers
         private readonly IClassroomRepository _classroomRepo;
         private readonly IMapper _mapper;
         private readonly ITeacherRepository _teacherRepo;
+        private readonly UserManager<AppUser> _userManager;
 
-        public ClassroomsController(IClassroomRepository classroomRepo, IMapper mapper, ITeacherRepository teacherRepo)
+        public ClassroomsController(IClassroomRepository classroomRepo, IMapper mapper, ITeacherRepository teacherRepo, UserManager<AppUser> userManager)
         {
             _classroomRepo = classroomRepo;
             _mapper = mapper;
             _teacherRepo = teacherRepo;
+            _userManager = userManager;
         }
 
         [Authorize(Roles = "admin, hrPersonal, teacher")]
@@ -152,6 +156,33 @@ namespace StudentPortal_WEB.Controllers
             }
             TempData["Error"] = "Sınıf bulunamadı!";
             return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> GetClassroomsByTeacherId()
+        {
+            var userId = _userManager.GetUserId(HttpContext.User);
+            var teacher = await _teacherRepo.GetByDefaultAsync(x => x.AppUserID == userId);
+
+            if (teacher != null)
+            {
+                var classrooms = await _classroomRepo.GetFilteredListAsync
+                  (
+                      select: x => new GetClassroomsVM
+                      {
+                          Id = x.Id,
+                          ClassName = x.ClassroomName,
+                          ClassDescription = x.ClassroomDescription,
+                          ClassSize = x.Students.Count()
+                      },
+                      where: x => x.TeacherId == teacher.Id && x.Status != Status.Passive,
+                      join: x => x.Include(z => z.Students)
+                  );
+
+                return View(classrooms);
+            }
+
+            TempData["Error"] = "Sınıflar bulunamadı!";
+            return RedirectToAction("Index", "Home");
         }
     }
 }

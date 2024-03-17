@@ -27,9 +27,12 @@ namespace StudentPortal_DataAccess.AutoMapper
             CreateMap<Student, CreateStudentDTO>().ReverseMap();
             CreateMap<Student, UpdateStudentDTO>().ReverseMap();
             CreateMap<Student, GetStudentDetailDTO>().ReverseMap();
+            CreateMap<Student, EnterExamStudentDTO>().ReverseMap();
 
             CreateMap<HumanResources, CreateHRDTO>().ReverseMap();
             CreateMap<HumanResources, UpdateHRDTO>().ReverseMap();
+
+            
         }
     }
 }

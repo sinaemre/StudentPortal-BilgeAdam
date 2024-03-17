@@ -23,6 +23,13 @@
             }
         }
 
+        @if (User.IsInRole("teacher"))
+        {
+            <li class="nav-item mx-2">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Classrooms" asp-action="GetClassroomsByTeacherId">Sınıfları Gör</a>
+            </li>
+        }
+
         @if (User.IsInRole("student"))
         {
             <li class="nav-item mx-2">

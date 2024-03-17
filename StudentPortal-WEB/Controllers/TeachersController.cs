@@ -11,25 +11,28 @@ using StudentPortal_Core.Entities.UserEntites.Concrete;
 using System.Text;
 using System.Globalization;
 using Microsoft.EntityFrameworkCore;
+using StudentPortal_Core.DTO_s.StudentDTO;
 
 namespace StudentPortal_WEB.Controllers
 {
-    [Authorize(Roles = "admin, hrPersonal")]
     public class TeachersController : Controller
     {
         private readonly ITeacherRepository _teacherRepo;
         private readonly IMapper _mapper;
         private readonly UserManager<AppUser> _userManager;
         private readonly IPasswordHasher<AppUser> _passwordHasher;
+        private readonly IStudentRepository _studentRepo;
 
-        public TeachersController(ITeacherRepository teacherRepo, IMapper mapper, UserManager<AppUser> userManager, IPasswordHasher<AppUser> passwordHasher)
+        public TeachersController(ITeacherRepository teacherRepo, IMapper mapper, UserManager<AppUser> userManager, IPasswordHasher<AppUser> passwordHasher, IStudentRepository studentRepo)
         {
             _teacherRepo = teacherRepo;
             _mapper = mapper;
             _userManager = userManager;
             _passwordHasher = passwordHasher;
+            _studentRepo = studentRepo;
         }
 
+        [Authorize(Roles = "admin, hrPersonal")]
         public async Task<IActionResult> Index()
         {
             var teachers = await _teacherRepo.GetFilteredListAsync
@@ -52,9 +55,11 @@ namespace StudentPortal_WEB.Controllers
             return View(teachers);
         }
 
+        [Authorize(Roles = "admin, hrPersonal")]
         public IActionResult CreateTeacher() => View();
 
         [HttpPost, ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin, hrPersonal")]
         public async Task<IActionResult> CreateTeacher(CreateTeacherDTO model)
         {
             if (ModelState.IsValid)
@@ -95,6 +100,7 @@ namespace StudentPortal_WEB.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "admin, hrPersonal")]
         public async Task<IActionResult> UpdateTeacher(int id)
         {
             if (id > 0)
@@ -112,6 +118,7 @@ namespace StudentPortal_WEB.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin, hrPersonal")]
         public async Task<IActionResult> UpdateTeacher(UpdateTeacherDTO model)
         {
             if (ModelState.IsValid)
@@ -135,6 +142,7 @@ namespace StudentPortal_WEB.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "admin, hrPersonal")]
         public async Task<IActionResult> DeleteTeacher(int id)
         {
             if (id > 0)
@@ -162,6 +170,41 @@ namespace StudentPortal_WEB.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "admin, hrPersonal, teacher")]
+        public async Task<IActionResult> EnterExamGrade(int id)
+        {
+            if (id > 0)
+            {
+                var student = await _studentRepo.GetByIdAsync(id);
+                if (student != null)
+                {
+                    var model = _mapper.Map<EnterExamStudentDTO>(student);
+                    return View(model);
+                }
+            }
+            TempData["Error"] = "Öğrenci bulunamadı!";
+            return RedirectToAction("GetClassroomsByTeacherId", "Classrooms");
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin, hrPersonal, teacher")]
+        public async Task<IActionResult> EnterExamGrade(EnterExamStudentDTO model)
+        {
+            if (ModelState.IsValid)
+            {
+                var student = _mapper.Map<Student>(model);
+                if (student != null)
+                {
+                    await _studentRepo.UpdateAsync(student);
+                    TempData["Success"] = "Öğrencinin notları başarılı bir şekilde girilmiştir!";
+                    return RedirectToAction("GetClassroomsByTeacherId", "Classrooms");
+                }
+                TempData["Error"] = "Öğrenci bulunamadı!";
+                return RedirectToAction("GetClassroomsByTeacherId", "Classrooms");
+            }
+            TempData["Error"] = "Aşağıdaki kurallara uyunuz!";
+            return View(model);
+        }
 
     }
 }

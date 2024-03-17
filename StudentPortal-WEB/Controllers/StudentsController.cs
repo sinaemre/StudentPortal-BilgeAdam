@@ -266,7 +266,7 @@ namespace StudentPortal_WEB.Controllers
         }
 
         [Authorize(Roles = "admin, hrPersonal, teacher")]
-        public async Task<IActionResult> GetStudentsByClassroomId(int id)
+        public async Task<IActionResult> GetStudentsByClassroomId(int? id)
         {
             if (id > 0)
             {

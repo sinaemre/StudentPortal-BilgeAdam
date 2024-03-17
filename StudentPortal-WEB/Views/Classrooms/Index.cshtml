@@ -14,97 +14,85 @@
                     <table class="table table-responsive-md table-responsive-sm table-sm  table-responsive-lg table-responsive-xs table-hover">
                         <thead>
                             <tr>
-                                @if (User.IsInRole("admin") || User.IsInRole("hrPersonal"))
-                                {
-                                    <th>Id</th>
-                                }
+                                <th>Id</th>
                                 <th>Sınıf Adı</th>
                                 <th>Açıklaması</th>
                                 <th>Mevcut</th>
-                                @if (User.IsInRole("admin") || User.IsInRole("hrPersonal"))
-                                {
-                                    <th>Öğretmen</th>
-                                    <th>Eklenme Tarihi</th>
-                                    <th>Güncellenme Tarihi</th>
-                                    <th>Durum</th>
-                                }
+                                <th>Öğretmen</th>
+                                <th>Eklenme Tarihi</th>
+                                <th>Güncellenme Tarihi</th>
+                                <th>Durum</th>
                                 <th>Detay</th>
-                                @if (User.IsInRole("admin") || User.IsInRole("hrPersonal"))
-                                {
-                                    <th>Güncelle</th>
-                                    <th>Sil</th>
-                                }
+                                <th>Güncelle</th>
+                                <th>Sil</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var classroom in Model)
                             {
                                 <tr>
-                                    @if (User.IsInRole("admin") || User.IsInRole("hrPersonal"))
-                                    {
-                                        <td>@classroom.Id</td>
-                                    }
+
+                                    <td>@classroom.Id</td>
+
 
                                     <td>@classroom.ClassroomName</td>
                                     <td>@classroom.ClassroomDescription</td>
                                     <td>@classroom.ClassroomSize</td>
-                                    @if (User.IsInRole("admin") || User.IsInRole("hrPersonal"))
-                                    {
-                                        <td>@classroom.TeacherName</td>
-                                        <td>@classroom.CreatedDate</td>
-                                        @if (classroom.UpdatedDate is not null)
-                                        {
-                                            <td>@classroom.UpdatedDate</td>
-                                        }
-                                        else
-                                        {
-                                            <td> - </td>
-                                        }
 
-                                        @if (classroom.Status == StudentPortal_Core.Entities.Abstract.Status.Active)
-                                        {
-                                            <td>Aktif</td>
-                                        }
-                                        else
-                                        {
-                                            <td>Güncellenmiş</td>
-                                        }
+                                    <td>@classroom.TeacherName</td>
+                                    <td>@classroom.CreatedDate</td>
+                                    @if (classroom.UpdatedDate is not null)
+                                    {
+                                        <td>@classroom.UpdatedDate</td>
                                     }
+                                    else
+                                    {
+                                        <td> - </td>
+                                    }
+
+                                    @if (classroom.Status == StudentPortal_Core.Entities.Abstract.Status.Active)
+                                    {
+                                        <td>Aktif</td>
+                                    }
+                                    else
+                                    {
+                                        <td>Güncellenmiş</td>
+                                    }
+
 
                                     <td>
                                         <a class="btn btn-outline-success" asp-controller="Students" asp-action="GetStudentsByClassroomId" asp-route-id="@classroom.Id"><i class="fa-solid fa-circle-info"></i></a>
                                     </td>
-                                    @if (User.IsInRole("admin") || User.IsInRole("hrPersonal"))
-                                    {
-                                        <td>
-                                            <a asp-action="UpdateClassroom" asp-route-id="@classroom.Id" class="btn btn-outline-primary">Güncelle</a>
-                                        </td>
-                                        <td>
-                                            <!-- Button trigger modal -->
-                                            <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal-@classroom.Id">
-                                                Sil
-                                            </button>
 
-                                            <!-- Modal -->
-                                            <div class="modal fade" id="exampleModal-@classroom.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">Silme Uyarısı</h5>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            Silmek istediğinize emin misiniz?
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
-                                                            <a asp-action="DeleteClassroom" asp-route-id="@classroom.Id" class="btn btn-danger">Evet</a>
-                                                        </div>
+                                    <td>
+                                        <a asp-action="UpdateClassroom" asp-route-id="@classroom.Id" class="btn btn-outline-primary">Güncelle</a>
+                                    </td>
+                                    <td>
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal-@classroom.Id">
+                                            Sil
+                                        </button>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="exampleModal-@classroom.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Silme Uyarısı</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Silmek istediğinize emin misiniz?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                                                        <a asp-action="DeleteClassroom" asp-route-id="@classroom.Id" class="btn btn-danger">Evet</a>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </td>
-                                    }
+                                        </div>
+                                    </td>
+
 
                                 </tr>
                             }
@@ -112,12 +100,11 @@
                     </table>
                 </div>
             </div>
-            @if (User.IsInRole("admin") || User.IsInRole("hrPersonal"))
-            {
-                <div class="card-footer">
-                    <a class="btn btn-outline-dark d-block" asp-action="CreateClassroom">Yeni Sınıf Ekle</a>
-                </div>
-            }
+
+            <div class="card-footer">
+                <a class="btn btn-outline-dark d-block" asp-action="CreateClassroom">Yeni Sınıf Ekle</a>
+            </div>
+
 
         </div>
     </div>
